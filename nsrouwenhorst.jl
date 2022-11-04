@@ -29,7 +29,7 @@ end
 
 
 
-function nsrouwenhorst(rho, sigma_eps, N, T)
+function nsrouwenhorst(rho, sigma_eps, N, T; y0 = 0.0)
     # % ========================================================================
     # %  Code for discretization method in "An Extension of Rouwenhorst Method
     # %  for Non-Stationary Environments" by Giulio Fella, Giovanni Gallipoli
@@ -70,7 +70,7 @@ function nsrouwenhorst(rho, sigma_eps, N, T)
     # 1.b Construct state space
     h = 2 * sqrt(N - 1) * sigma_y / (N - 1) # grid Step
     y_grid = repeat(h, N, 1)
-    y_grid[1,:] = -sqrt(N-1) * sigma_y
+    y_grid[1,:] = -sqrt(N-1) * sigma_y .+ y0
     y_grid = cumsum(y_grid, dims = 1)
 
     # %  *** Step 2: Compute the transition matrices trans(:,:,t) from
